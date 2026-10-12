@@ -134,7 +134,7 @@
             </li>
           </ul>
 
-          <a href="#" onclick="triggerDownload('mac')" class="w-full py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 text-white flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 transition">
+          <a href="/downloads/Bi-Desk-Mac.dmg" download="Bi-Desk-Mac.dmg" class="w-full py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 text-white flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             <span>Download for Mac (.dmg)</span>
           </a>
@@ -166,7 +166,7 @@
             </li>
           </ul>
 
-          <a href="#" onclick="triggerDownload('windows')" class="w-full py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 text-white flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 transition">
+          <a href="/downloads/Bi-Desk-Setup.exe" download="Bi-Desk-Setup.exe" class="w-full py-3.5 rounded-xl font-bold text-sm bg-gradient-to-r from-red-600 to-orange-500 hover:from-red-500 hover:to-orange-400 text-white flex items-center justify-center gap-2 shadow-lg shadow-red-500/20 transition">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             <span>Download for Windows (.exe)</span>
           </a>
@@ -279,7 +279,8 @@
     }
 
     function triggerDownload(os) {
-      alert(`Downloading Bi Desk release for ${os.toUpperCase()}...\nFile: ${os === 'mac' ? 'Bi-Desk-Mac.dmg' : 'Bi-Desk-Setup.exe'}`);
+      const filename = os === 'mac' ? 'Bi-Desk-Mac.dmg' : 'Bi-Desk-Setup.exe';
+      window.location.href = `/downloads/${filename}`;
     }
   </script>
 </body>
