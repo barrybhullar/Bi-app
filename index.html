@@ -226,6 +226,10 @@
   </footer>
 
   <script>
+    const SUPABASE_URL = 'https://wzxxxppjautoferbgima.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_nNp4M-urF1v52LkA-B4HLQ_pmbWHAjt';
+    const supabaseClient = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
     let isLogin = false;
 
     function toggleAuthMode() {
@@ -237,20 +241,40 @@
       document.getElementById('auth-feedback').classList.add('hidden');
     }
 
-    function handleAuth(e) {
+    async function handleAuth(e) {
       e.preventDefault();
       const email = document.getElementById('auth-email').value;
       const password = document.getElementById('auth-password').value;
       const feedback = document.getElementById('auth-feedback');
+      const btn = document.getElementById('auth-btn');
 
       feedback.classList.remove('hidden', 'bg-red-500/10', 'text-red-400', 'bg-emerald-500/10', 'text-emerald-400');
-      
-      if (isLogin) {
-        feedback.classList.add('bg-emerald-500/10', 'text-emerald-400');
-        feedback.innerText = `Signed in successfully as ${email}! Launching Bi Desk client...`;
-      } else {
-        feedback.classList.add('bg-emerald-500/10', 'text-emerald-400');
-        feedback.innerText = `Account created for ${email}! You can now log into Bi Desk.`;
+      btn.disabled = true;
+      btn.classList.add('opacity-70');
+
+      try {
+        if (supabaseClient) {
+          if (isLogin) {
+            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+            if (error) throw error;
+            feedback.classList.add('bg-emerald-500/10', 'text-emerald-400');
+            feedback.innerText = `ਸਵਾਗਤ ਹੈ! ਲੌਗਇਨ ਸਫਲ ਰਿਹਾ (${email})। Bi Desk ਐਪ ਖੁੱਲ੍ਹ ਰਹੀ ਹੈ...`;
+          } else {
+            const { data, error } = await supabaseClient.auth.signUp({ email, password });
+            if (error) throw error;
+            feedback.classList.add('bg-emerald-500/10', 'text-emerald-400');
+            feedback.innerText = `ਅਕਾਊਂਟ ਸਫਲਤਾਪੂਰਵਕ ਬਣ ਗਿਆ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਈਮੇਲ ਵੈਰੀਫਾਈ ਕਰੋ ਜਾਂ ਸਿੱਧਾ ਐਪ ਵਿੱਚ ਲੌਗਇਨ ਕਰੋ।`;
+          }
+        } else {
+          feedback.classList.add('bg-emerald-500/10', 'text-emerald-400');
+          feedback.innerText = isLogin ? `Signed in as ${email}!` : `Account created for ${email}!`;
+        }
+      } catch (err) {
+        feedback.classList.add('bg-red-500/10', 'text-red-400');
+        feedback.innerText = err.message || 'Authentication error';
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('opacity-70');
       }
     }
 
