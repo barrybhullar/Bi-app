@@ -258,12 +258,12 @@
             const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
             if (error) throw error;
             feedback.classList.add('bg-emerald-500/10', 'text-emerald-400');
-            feedback.innerText = `ਸਵਾਗਤ ਹੈ! ਲੌਗਇਨ ਸਫਲ ਰਿਹਾ (${email})। Bi Desk ਐਪ ਖੁੱਲ੍ਹ ਰਹੀ ਹੈ...`;
+            feedback.innerText = `Welcome! Login successful (${email}). Opening Bi Desk app...`;
           } else {
             const { data, error } = await supabaseClient.auth.signUp({ email, password });
             if (error) throw error;
             feedback.classList.add('bg-emerald-500/10', 'text-emerald-400');
-            feedback.innerText = `ਅਕਾਊਂਟ ਸਫਲਤਾਪੂਰਵਕ ਬਣ ਗਿਆ ਹੈ! ਕਿਰਪਾ ਕਰਕੇ ਆਪਣੀ ਈਮੇਲ ਵੈਰੀਫਾਈ ਕਰੋ ਜਾਂ ਸਿੱਧਾ ਐਪ ਵਿੱਚ ਲੌਗਇਨ ਕਰੋ।`;
+            feedback.innerText = `Account created successfully! Please verify your email or sign in directly.`;
           }
         } else {
           feedback.classList.add('bg-emerald-500/10', 'text-emerald-400');
