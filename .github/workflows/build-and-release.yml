@@ -1,0 +1,87 @@
+name: Compile and Publish Protected Binaries
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build-windows-client:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Compile Windows Client (Stripped & Obfuscated)
+        run: |
+          cd client
+          npm ci
+          npm run build
+          npx tauri build --bundles nsis
+      - name: Upload Windows Client App
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-client-desktop
+          path: client/src-tauri/target/release/bundle/nsis/*.exe
+
+  build-windows-host:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Compile Hardened Windows Host (Stripped & Obfuscated)
+        run: |
+          cd host-service
+          cargo build --release
+      - name: Upload Windows Binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-host-service
+          path: host-service/target/release/parsec-host-service.exe
+
+  build-macos-client:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+      - name: Compile Hardened macOS App (Stripped & Protected)
+        run: |
+          cd client
+          npm ci
+          npm run build
+          npx tauri build --bundles dmg
+      - name: Upload Mac Client App
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-client-desktop
+          path: client/src-tauri/target/release/bundle/dmg/*.dmg
+
+  publish-public-release:
+    needs: [build-windows-client, build-windows-host, build-macos-client]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist-release
+      - name: Publish Public Downloadable Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist-release/windows-host-service/*
+            dist-release/windows-client-desktop/*
+            dist-release/mac-client-desktop/*
+          draft: false
+          prerelease: false

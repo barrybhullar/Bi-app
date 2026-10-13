@@ -1,0 +1,14 @@
+# Dependencies & Build artifacts
+node_modules/
+dist/
+dist-app/
+target/
+*.dmg
+*.zip
+*.exe
+
+# OS & Environment
+.DS_Store
+*.log
+.env
+.env.local

@@ -1,0 +1,32 @@
+{
+  "name": "parsec-clone-client",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ultra low-latency remote desktop client GUI and WebRTC engine",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.48.1",
+    "@tauri-apps/api": "^2.12.3",
+    "@tauri-apps/plugin-window-state": "^2.5.0",
+    "lucide-react": "^0.475.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.2",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0"
+  }
+}

@@ -1,0 +1,28 @@
+feature,area,priority,original,clone,notes
+One-click sign-in & session persistence,auth,must,yes,yes,Supabase Auth with persistent session storage
+Automatic local computer discovery & presence,discovery,must,yes,yes,Realtime presence mesh & heartbeat ping
+Native Windows installer (.exe) with NSIS self-containment,packaging,must,yes,yes,Compiled via cargo-xwin as PE32+ GUI executable
+Native macOS app & installer (.dmg / .zip) ad-hoc signed,packaging,must,yes,yes,Tauri bundle with Gatekeeper xattr-cr pass
+Native Linux Debian installer (.deb),packaging,must,yes,partial,Packaged via tauri deb target
+Web-based connection client for zero-install access,client,must,yes,yes,Vercel hosted web client at /app/
+Ultra-low latency P2P WebRTC streaming (60-120 FPS),streaming,must,yes,yes,STUN/TURN backed WebRTC with recvonly transceivers
+Real screen desktop capture (DisplayMedia / DXGI / ScreenCaptureKit),host,must,yes,yes,Automated capture with 60 FPS fallback canvas
+Native remote mouse movement & click injection,input,must,yes,yes,Windows Win32 SendInput / mouse_event via Tauri commands
+Native remote keyboard stroke & hotkey injection,input,must,yes,yes,Win32 keybd_event & macOS virtual key event mapping
+Floating In-Session Overlay HUD with live FPS and Latency metrics,overlay,must,yes,yes,Bi Desk Pro HUD with live ping roundtrip
+Maintenance mode & Remote Kill-Switch,admin,must,yes,yes,Supabase app_config live listener with /admin.html portal
+Bandwidth limit slider (5-100 Mbps),settings,should,yes,yes,In-app client and host settings panel
+Custom Resolution Target (Auto / Host / Client / Custom),settings,should,yes,yes,Section B Quick Resolution switch in client
+Device Role Selector (Host Only / Client Only / Both),settings,should,yes,yes,Section A Device Role radio cards
+Multi-Monitor display switching,multi-display,should,yes,yes,Display tabs in session overlay
+Virtual Display Addition,multi-display,should,yes,partial,Virtual display driver toggle
+YUV 4:4:4 & 10-Bit Color accuracy mode (Parsec Warp style),warp,should,yes,yes,Configurable colorFormat in App.tsx
+Client relative mouse mode for FPS games,input,should,yes,yes,PointerLock API with raw movementX/Y
+Audio stream capture and playback (Opus),audio,should,yes,yes,WebRTC audio transceiver integration
+Custom STUN/TURN network relay override,network,could,yes,yes,Configurable ICE server credentials
+Dual-Screen split stream view,multi-display,could,yes,yes,Dual-split canvas rendering in App.tsx
+Host privacy mode (Blank host physical display),host,could,yes,partial,Display turn-off command
+Automated update downloader & background launcher,updater,could,yes,yes,install_windows.ps1 & direct landing links
+SAML / Enterprise Single Sign-On,enterprise,could,yes,partial,Supabase Enterprise SSO integration
+Third-party Arcade game matchmaking marketplace,arcade,skip,yes,skip,Third party licensing not part of clone
+Cloud-hosted GPU instances leasing,cloud,skip,yes,skip,Out of scope - BYO Hardware P2P model

@@ -1,0 +1,21 @@
+[package]
+name = "parsec-core-desktop"
+version = "1.0.0"
+description = "Native Low-Latency Desktop Client"
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2.0", features = [] }
+
+[dependencies]
+tauri = { version = "2.0", features = [] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Production Anti-Reverse Engineering & Anti-Crack Profile
+[profile.release]
+opt-level = 3          # Maximum compiler optimization
+lto = true              # Link-Time Optimization (inlines all internal calls)
+codegen-units = 1       # Single code generator for maximum obfuscation
+panic = "abort"        # Remove all debug and stack unwinding symbols
+strip = true            # Strip all symbol names, function names and variables
